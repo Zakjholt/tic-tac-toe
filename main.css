@@ -1,5 +1,5 @@
 .board {
-    width: 310px;
+    width: 350px;
 }
 
 .top {
@@ -20,15 +20,24 @@
 
 .row>div {
     box-sizing: border-box;
-    width: 33.33%;
-    padding: 50px;
+    width: 33.33;
     float: left;
+    padding: 50px;
+    background-size: cover;
+}
+
+.empty {
     cursor: pointer;
 }
 
-img {
+.x {
+    background-image: url("x.png")
+}
+
+.o {
+    background-image: url("o.png");
+}
+
+.template {
     display: none;
-    width: 20px;
-    position: relative;
-    right: 20px;
 }
