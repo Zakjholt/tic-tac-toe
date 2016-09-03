@@ -1,59 +1,46 @@
-var topRow = [null, null, null];
-var midRow = [null, null, null];
-var botRow = [null, null, null];
+var board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+];
 $(document).ready(function() {
     var currentTurn = "x";
 
-    $(".row").on("click", ".empty", function() {
+    $("body").on("click", ".empty", function() {
         $(this).removeClass("empty");
+        board[$(this).parent().index()][$(this).index()] = currentTurn;
+        winCheck(board);
         if (currentTurn === "x") {
             $(this).addClass("x");
-            if ($(this).hasClass("top")) {
-                topRow[$(this).index()] = currentTurn;
-                winCheck(topRow);
-            } else if ($(this).hasClass("mid")) {
-                midRow[$(this).index()] = currentTurn;
-                winCheck(midRow);
-            } else if ($(this).hasClass("bot")) {
-                botRow[$(this).index()] = currentTurn;
-                winCheck(botRow);
-            }
             currentTurn = "o";
         } else {
             $(this).addClass("o");
-            if ($(this).hasClass("top")) {
-                topRow[$(this).index()] = currentTurn;
-                winCheck(topRow);
-            } else if ($(this).hasClass("mid")) {
-                midRow[$(this).index()] = currentTurn;
-                winCheck(midRow);
-            } else if ($(this).hasClass("bot")) {
-                botRow[$(this).index()] = currentTurn;
-                winCheck(botRow);
-            }
-
             currentTurn = "x";
         }
     });
 
 });
 
-function winCheck(arr) {
-    var xCount = 0;
-    var oCount = 0;
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] === "x") {
-            xCount++;
-        } else if (arr[i] === "o") {
-            oCount++;
-        }
-    }
+function newGame() {
+    var newBoard = $(".template").clone();
+    newBoard.removeClass("template");
+    $("body").append(newBoard);
+}
 
-    if (xCount === 3 || xCount === 3) {
-        $('.board').empty();
-        $('.board').html("<h2>X Wins!</h2>");
-    } else if (oCount === 3 || oCount === 3) {
-        $('.board').empty();
-        $('.board').html("<h2>O Wins!</h2>");
+function winCheck(arr) {
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < arr[i].length; j++) {
+            var xCount = 0;
+            var oCount = 0;
+            if (arr[i][j] === "x") {
+                xCount++;
+            } else if (arr[i][j] === "o") {
+                oCount++;
+            }
+            if (xCount === 3) {
+                $(this).closest('.board').empty();
+                $(this).closest('.board').html("<h2> X Wins! </h2>");
+            }
+        }
     }
 }

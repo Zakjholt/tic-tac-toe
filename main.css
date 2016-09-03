@@ -1,5 +1,6 @@
 .board {
-    width: 350px;
+    width: 400px;
+    height: 400px;
 }
 
 .top {
@@ -19,8 +20,6 @@
 }
 
 .row>div {
-    box-sizing: border-box;
-    width: 33.33;
     float: left;
     padding: 50px;
     background-size: cover;
