@@ -18,29 +18,24 @@ $(document).ready(function() {
             currentTurn = "x";
         }
     });
+    $(".newGame").click(function() {
+        newGame();
+    });
 
 });
 
 function newGame() {
     var newBoard = $(".template").clone();
     newBoard.removeClass("template");
-    $("body").append(newBoard);
+    $(".playingSpace").prepend(newBoard);
 }
 
 function winCheck(arr) {
-    for (var i = 0; i < arr.length; i++) {
-        for (var j = 0; j < arr[i].length; j++) {
-            var xCount = 0;
-            var oCount = 0;
-            if (arr[i][j] === "x") {
-                xCount++;
-            } else if (arr[i][j] === "o") {
-                oCount++;
-            }
-            if (xCount === 3) {
-                $(this).closest('.board').empty();
-                $(this).closest('.board').html("<h2> X Wins! </h2>");
-            }
-        }
+    var left = 0;
+    var center = 1;
+    var right = 2;
+
+    if (arr[0] === arr[1] && arr[1] === arr[2]) {
+        $(".board").empty();
     }
 }
