@@ -23,21 +23,21 @@
     border-left: 3px solid black;
 }
 
-.row>div {
+.board>div {
     float: left;
     padding: 50px;
-    background-size: cover;
+    background-size: 100px;
 }
 
 .empty {
     cursor: pointer;
 }
 
-.x {
+.X {
     background-image: url("x.png")
 }
 
-.o {
+.O {
     background-image: url("o.png");
 }
 
