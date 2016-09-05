@@ -1,41 +1,61 @@
-var board = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-];
+var currentTurn = "x";
+var cells = ['', '', '', '', '', '', '', '', ''];
+var gameOver = false;
 $(document).ready(function() {
-    var currentTurn = "x";
 
     $("body").on("click", ".empty", function() {
-        $(this).removeClass("empty");
-        board[$(this).parent().index()][$(this).index()] = currentTurn;
-        winCheck(board);
-        if (currentTurn === "x") {
-            $(this).addClass("x");
-            currentTurn = "o";
-        } else {
-            $(this).addClass("o");
-            currentTurn = "x";
+        if (!gameOver) {
+            $(this).removeClass("empty");
+            cells[$(this).data("cell")] = currentTurn;
+            if (currentTurn === "X") {
+                $(this).addClass("X");
+                currentTurn = "O";
+            } else {
+                $(this).addClass("O");
+                currentTurn = "X";
+            }
         }
+        winCheck();
     });
-    $(".newGame").click(function() {
-        newGame();
-    });
+
+
 
 });
 
-function newGame() {
-    var newBoard = $(".template").clone();
-    newBoard.removeClass("template");
-    $(".playingSpace").prepend(newBoard);
-}
+function winCheck() {
+    var winner = '';
 
-function winCheck(arr) {
-    var left = 0;
-    var center = 1;
-    var right = 2;
+    var wins = [
+        // Horizontal
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        // Vertical
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        // Diagonal
+        [0, 4, 8],
+        [6, 4, 2]
+    ];
 
-    if (arr[0] === arr[1] && arr[1] === arr[2]) {
-        $(".board").empty();
+
+    var gameCells = cells;
+    $.each(wins, function(key, value) {
+        var i1 = wins[key][0];
+        var i2 = wins[key][1];
+        var i3 = wins[key][2];
+
+
+        if (cells[i1] === cells[i2] && cells[i2] === cells[i3] && cells[i1] !== "") {
+            winner = cells[i1];
+            $("body").html("<h1>" + winner + " is the winner!</h1>");
+            return;
+        }
+
+    });
+
+    if (winner !== "") {
+        gameOver = true;
     }
 }
