@@ -1,10 +1,9 @@
-var currentTurn = "x";
+var currentTurn = "X";
 var cells = ['', '', '', '', '', '', '', '', ''];
 var gameOver = false;
 $(document).ready(function() {
 
     $("body").on("click", ".empty", function() {
-        if (!gameOver) {
             $(this).removeClass("empty");
             cells[$(this).data("cell")] = currentTurn;
             if (currentTurn === "X") {
@@ -14,7 +13,6 @@ $(document).ready(function() {
                 $(this).addClass("O");
                 currentTurn = "X";
             }
-        }
         winCheck();
     });
 
