@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.board-container {
+  margin: 0 auto;
+  display: flex;
+  max-width: 800px;
+  flex-direction: column;
+}
+
+.row-container {
+  display: flex;
+  flex: 1;
+  border-bottom: 4px solid black;
+}
+
+.row-container:nth-child(3) {
+  border-bottom: none;
+}
+
+.square-container {
+  flex: 1;
+  font-size: 4em;
+  min-width: 75px;
+  min-height: 200px;
+  border-right: 4px solid black;
+  cursor: pointer;
+  line-height: 200px;
+  text-align: center;
+}
+
+.square-container:nth-child(3) {
+  border-right: none;
+}
