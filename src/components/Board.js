@@ -28,7 +28,8 @@ const initialState = {
     <div style={{ flex: 1 }}>
       <h2>Tic Tac Toe</h2>
     </div>
-  )
+  ),
+  playing: true
 }
 
 export default class Board extends Component {
@@ -39,7 +40,7 @@ export default class Board extends Component {
 
   makePlayerMove = squareNumber => {
     const state = this.state
-    if (!this.state[squareNumber]) {
+    if (!this.state[squareNumber] && this.state.playing) {
       this.setState({
         ...state,
         [squareNumber]: state.currentTurn,
@@ -49,15 +50,15 @@ export default class Board extends Component {
   }
 
   componentDidUpdate = () => {
-    if (this.state.currentTurn) {
+    if (this.state.playing) {
       this.checkWin()
     }
     this.makeCPUMove()
   }
 
   makeCPUMove = () => {
-    const { currentTurn } = this.state
-    if (currentTurn === 'O') {
+    const { currentTurn, playing } = this.state
+    if (currentTurn === 'O' && playing) {
       const emptySquares = Object.keys(this.state).filter(k => !this.state[k])
 
       const dangerSquares = []
@@ -81,14 +82,18 @@ export default class Board extends Component {
   getXSquares = () =>
     Object.keys(this.state)
       .filter(
-        k => this.state[k] === 'X' && k !== 'currentTurn' && k !== 'message'
+        k =>
+          this.state[k] === 'X' &&
+          !['currentTurn', 'playing', 'message'].includes(k)
       )
       .map(i => parseInt(i))
 
   getOSquares = () =>
     Object.keys(this.state)
       .filter(
-        k => this.state[k] === 'O' && k !== 'currentTurn' && k !== 'message'
+        k =>
+          this.state[k] === 'O' &&
+          !['currentTurn', 'playing', 'message'].includes(k)
       )
       .map(i => parseInt(i))
 
@@ -100,7 +105,7 @@ export default class Board extends Component {
       if (!difference(combo, Xsquares).length) {
         this.renderWin('X')
       }
-      if (!difference(combo, Osquares.length)) {
+      if (!difference(combo, Osquares).length) {
         this.renderWin('O')
       }
     })
@@ -117,7 +122,7 @@ export default class Board extends Component {
         <button onClick={() => this.resetGame()}>Reset</button>
       </div>
     )
-    this.setState({ ...this.state, currentTurn: '', message })
+    this.setState({ ...this.state, playing: false, message })
   }
 
   render() {
